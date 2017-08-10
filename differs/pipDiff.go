@@ -116,7 +116,6 @@ func (d PipDiffer) getPackages(image utils.Image) (map[string]map[string]utils.P
 			}
 		}
 	}
-
 	return packages, nil
 }
 
