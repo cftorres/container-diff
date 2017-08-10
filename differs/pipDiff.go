@@ -59,9 +59,7 @@ func (d PipDiffer) getPackages(image utils.Image) (map[string]map[string]utils.P
 	pythonPaths := []string{}
 	if !reflect.DeepEqual(utils.ConfigSchema{}, image.Config) {
 		paths := getPythonPaths(image.Config.Config.Env)
-		for _, p := range paths {
-			pythonPaths = append(pythonPaths, p)
-		}
+		pythonPaths = append(pythonPaths, paths...)
 	}
 	pythonVersions, err := getPythonVersion(path)
 	if err != nil {
@@ -77,7 +75,7 @@ func (d PipDiffer) getPackages(image utils.Image) (map[string]map[string]utils.P
 	for _, pythonPath := range pythonPaths {
 		contents, err := ioutil.ReadDir(pythonPath)
 		if err != nil {
-			// python version folder doesn't have a site-packages folder
+			// Python path doesn't exist
 			continue
 		}
 
